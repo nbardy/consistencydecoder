@@ -77,7 +77,7 @@ class ConsistencyDecoder:
     def __init__(self, device="cuda:0", download_root=os.path.expanduser("~/.cache/clip")):
         self.n_distilled_steps = 64
         download_target = _download("https://openaipublic.azureedge.net/diff-vae/c9cebd3132dd9c42936d803e33424145a748843c8f716c0814838bdc8a2fe7cb/decoder.pt", download_root)
-        self.ckpt = torch.jit.load(download_target).to(device)
+        self.ckpt = torch.jit.load(download_target, map_location=device).to(device)
         self.device = device
         sigma_data = 0.5
         betas = betas_for_alpha_bar(
